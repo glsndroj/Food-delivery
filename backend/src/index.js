@@ -1,6 +1,7 @@
 import express from "express"
 import bodyParser from "body-parser"
 import {configDotenv} from "dotenv"
+import { ConnectDB } from "./Database/db.js";
 
 configDotenv();
 
@@ -13,5 +14,6 @@ app.use(bodyParser.json());
 console.log("Server live!")
 
 app.listen(port,() => {
-    console.log("Connected successfully!")
+    ConnectDB();
+    
 })
