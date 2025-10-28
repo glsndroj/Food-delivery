@@ -20,7 +20,7 @@ export const SignUp = async(req, res) => {
         }else{
             res.status(401).send("This email already registered!")
         }
-        
+
     } catch (error) {
         console.log("error", error)
         res.status(500).send({message: "Error", error})
@@ -28,21 +28,30 @@ export const SignUp = async(req, res) => {
     }
 }
 
+export const getUsers = async(req,res) => {
+    try {
+        const result = await User.find()
+        res.status(200).send(result)
+
+    } catch (error) {
+        res.status(500).send("Error", error)
+    }
+}
+
 export const Login = async (req, res) => {
+
+   try {
     const {email, password} = req.body;
 
-    const user = await User.findOne({email})
-
-    console.log("User", user)
-
-    if(!user.lenght) {
-
+    const isRegistered = await User.findOne({email})
+    console.log("User", isRegistered)
+    const isCorrectPass = bcrypt.compare(password, isRegistered.password)
+    if(isCorrectPass){
+        res.status(200).send("Login successful!")
+    }else {
+        res.status(401).send("Password is wrong")
     }
-    console.log("Body DATA", email, password)
-
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-    if(!isPasswordCorrect){
-        res.status(403).send({message: "Password incorrect"})
-    }
-    res.status(200).send({message: "Success", data: user})
+   } catch (error) {
+    req.status(500).send("Error", error)
+   }
 }
