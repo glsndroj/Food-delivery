@@ -44,14 +44,16 @@ export const Login = async (req, res) => {
     const {email, password} = req.body;
 
     const isRegistered = await User.findOne({email})
-    console.log("User", isRegistered)
-    const isCorrectPass = bcrypt.compare(password, isRegistered.password)
+    console.log("User", isRegistered.password, password)
+    const isCorrectPass = await bcrypt.compare(password, isRegistered.password)
+    console.log("test",isCorrectPass);
+    
     if(isCorrectPass){
         res.status(200).send("Login successful!")
     }else {
         res.status(401).send("Password is wrong")
     }
    } catch (error) {
-    req.status(500).send("Error", error)
+    res.status(500).send("Error", error)
    }
 }
