@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt"
 import { User } from "../models/userSchema.js";
+import jwt from "jsonwebtoken"
 
 
 export const SignUp = async(req, res) => {
@@ -23,7 +24,7 @@ export const SignUp = async(req, res) => {
 
     } catch (error) {
         console.log("error", error)
-        res.status(500).send({message: "Error", error})
+        res.status(500).send({message: "Something went wrong!", error})
         
     }
 }
@@ -36,11 +37,18 @@ export const Login = async (req, res) => {
 
     const isRegistered = await User.findOne({email})
     console.log("User", isRegistered.password, password)
+
+    if(!isRegistered){
+        res.status(404).send("email has been registered")
+    }
+    console.log("is regis", isRegistered)
+
     const isCorrectPass = await bcrypt.compare(password, isRegistered.password)
     console.log("test",isCorrectPass);
     
     if(isCorrectPass){
-        res.status(200).send("Login successful!")
+        const token = jwt.sign(isRegistered.toObject(), "Mash-secret-key", {expiresIn: '1h'})
+        res.status(200).send({res:isRegistered, token: token})
     }else {
         res.status(401).send("Password is wrong")
     }
