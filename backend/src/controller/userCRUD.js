@@ -23,7 +23,7 @@ export const SignUp = async(req, res) => {
 
     } catch (error) {
         console.log("error", error)
-        res.status(500).send({message: "Error", error})
+        res.status(500).send({message: "Something went wrong!", error})
         
     }
 }
