@@ -74,7 +74,7 @@ export const updateUser = async (req, res) => {
     try {
         const userId = req.params.id
         const user = await User.findByIdAndUpdate(userId, req.body)
-        res.status(200).send(user, "User updated")
+        res.status(200).send("User updated", user)
         
     } catch (error) {
         res.status(401).send("Error", error)
@@ -87,7 +87,7 @@ export const deleteUser = async (req, res) => {
     try {
         const userId = req.params.id;
         const user = await User.findByIdAndDelete(userId)
-        res.status(200).send(user, "User deleted")
+        res.status(200).send("User deleted")
         
     } catch (error) {
         res.status(401).send("Error", error)
