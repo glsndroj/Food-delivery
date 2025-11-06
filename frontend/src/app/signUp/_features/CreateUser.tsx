@@ -11,7 +11,7 @@ export function CreateUser () {
                 <h2 className="text-2xl font-semibold">Create your account</h2>
                 <p className="text-gray-400 font-normal">Sign up to explore your favorite dishes.</p>
             </div>
-            <input className="border border-gray-300 rounded-md py-1" type="text" placeholder="Enter your email address" />
+            <input className="border border-gray-300 rounded-md py-1" type="email" placeholder="Enter your email address" />
             <button className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md">Let's Go</button>
             <div className="flex gap-3 justify-center">
                 <p className="text-[#71717A]">Already have an account?</p>
