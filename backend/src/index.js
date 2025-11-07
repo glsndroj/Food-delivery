@@ -5,6 +5,7 @@ import { ConnectDB } from "./Database/db.js";
 import { userRouter } from "./routes/userRoute.js";
 import { FoodCategoryRouter } from "./routes/foodCategoryRoute.js";
 
+
 configDotenv();
 
 const app = express();

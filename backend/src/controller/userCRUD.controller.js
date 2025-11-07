@@ -48,15 +48,14 @@ export const SignUp = async (req, res) => {
     if (existingUser)
       return res.status(401).send({ message: "User registered!" });
 
+    const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password: hashedPassword });
-    res
-      .status(200)
-      .send({
+    res.status(200).send({
         message: "User created successfully, Please log in",
         user: { id: newUser._id, email: newUser.email },
       });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    
   } catch (error) {
     console.error("Signup error", error);
     req.status(500).send({ message: "Server error" });
@@ -79,13 +78,11 @@ export const Login = async (req, res) => {
     const token = jwt.sign(isRegistered.toObject(), process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
+    res.status(200).send({message: "Login successful", token, user: {id: isRegistered._id, email: isRegistered.email}})
 
-    if (isCorrectPass) {
-      res.status(200).send("Login successful!");
-    } else {
-      res.status(401).send("Password is wrong");
-    }
+  
   } catch (error) {
-    res.status(500).send("Error", error);
+    console.error("Login error", error)
+    res.status(500).send("Server error");
   }
 };
