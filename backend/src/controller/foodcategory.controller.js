@@ -1,17 +1,26 @@
 import { Category } from "../models/foodCategorySchema.js";
 
 export const CreateFoodCategory = async (req, res) => {
-  console.log(req.body);
-
   try {
-    await Category.create({
-      name: req.body.name,
+    const { name } = req.body;
+
+    const existingCategory = await Category.findOne({ name: name.trim() });
+    if (existingCategory) {
+      return res
+        .status(409)
+        .send({ message: "Category already created!", data: existingCategory });
+    }
+
+    const newCategory = await Category.create({
+      name: name.trim(),
     });
 
-    res.status(200).send({ message: "Successful", data: req.body });
+    res
+      .status(200)
+      .send({ message: "Category created successfully!", data: newCategory });
   } catch (error) {
-    console.log(error, "err");
-    res.status(500).send({ message: "Error", data: null });
+    console.error("Create category error: ", error);
+    res.status(500).send({ message: "Error", error: error.message });
   }
 };
 
