@@ -14,6 +14,7 @@ export const createUser = async (req, res) => {
 export const getUsers = async (req, res) => {
   try {
     const result = await User.find();
+
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send("Error", error);
@@ -46,19 +47,18 @@ export const SignUp = async (req, res) => {
 
     const existingUser = await User.findOne({ email });
     if (existingUser)
-      return res.status(401).send({ message: "User registered!" });
+      return res.status(409).send({ message: "User registered!" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = await User.create({ email, password: hashedPassword });
+    console.log("Registered user: ", newUser);
     res.status(200).send({
-        message: "User created successfully, Please log in",
-        user: { id: newUser._id, email: newUser.email },
-      });
-
-    
+      message: "User created successfully, Please log in",
+      user: { id: newUser._id, email: newUser.email },
+    });
   } catch (error) {
     console.error("Signup error", error);
-    req.status(500).send({ message: "Server error" });
+    res.status(500).send({ message: "Server error" });
   }
 };
 
@@ -68,21 +68,30 @@ export const Login = async (req, res) => {
 
     const isRegistered = await User.findOne({ email });
     if (!isRegistered) {
+      console.log("User not found");
       return res.status(400).send({ message: "Invalid email or password!" });
     }
-    console.log("User", isRegistered.password, password);
+    console.log("Use found: ", isRegistered.email);
+    console.log("Saved password hash: ", isRegistered.password);
 
     const isCorrectPass = await bcrypt.compare(password, isRegistered.password);
-    console.log("test", isCorrectPass);
+    console.log("Password match: ", isCorrectPass);
+    if (!isCorrectPass) {
+      return res.status(400).json({ message: "Invalid email or password!" });
+    }
+    if (!process.env.JWT_SECRET) {
+    }
 
     const token = jwt.sign(isRegistered.toObject(), process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.status(200).send({message: "Login successful", token, user: {id: isRegistered._id, email: isRegistered.email}})
-
-  
+    res.status(200).send({
+      message: "Login successful",
+      token,
+      user: { id: isRegistered._id, email: isRegistered.email },
+    });
   } catch (error) {
-    console.error("Login error", error)
-    res.status(500).send("Server error");
+    console.error("Login error", error);
+    res.status(500).send({ message: "Server error", error: error.message });
   }
 };
