@@ -1,9 +1,9 @@
-import { CreateUser } from "./_features/CreateUser";
+import { LoginUser } from "./_components/Login";
 
 export default function Home () {
     return (
         <div className="flex">
-            <CreateUser/>
+            <LoginUser/>
         </div>
     )
 }
