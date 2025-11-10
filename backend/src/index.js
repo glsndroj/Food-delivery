@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { configDotenv } from "dotenv";
 import { ConnectDB } from "./Database/db.js";
 import { userRouter } from "./routes/userRoute.js";
-import { FoodCategoryRouter } from "./routes/foodCategoryRoute.js";
+import { FoodCategoryRouter } from "./routes/categoryRoute.js";
 import { FoodRouter } from "./routes/foodRoute.js";
 import { authRouter } from "./routes/authRoute.js";
 
