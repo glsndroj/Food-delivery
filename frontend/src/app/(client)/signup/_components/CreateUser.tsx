@@ -1,7 +1,12 @@
 import { BackSVG } from "@/svgs/backButtonSVG";
 import Link from "next/link";
 
-export function CreateUser() {
+export function CreateUser({onNext}:{onNext: () => void}) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    onNext();
+  }
+
   return (
     <div className="flex gap-24 w-full h-screen items-center justify-center">
       <div className="w-[416px] h-72 flex flex-col gap-6">
@@ -12,14 +17,18 @@ export function CreateUser() {
             Sign up to explore your favorite dishes.
           </p>
         </div>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           className="border border-gray-300 rounded-md py-1"
           type="email"
           placeholder="Enter your email address"
+          required
         />
-        <button className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md">
+        <button type="submit" className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md">
           Let's Go
         </button>
+        </form>
+        
         <div className="flex gap-3 justify-center">
           <p className="text-[#71717A]">Already have an account?</p>
           <Link className="text-[#2563EB]" href="/login">
