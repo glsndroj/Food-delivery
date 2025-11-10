@@ -5,6 +5,7 @@ import { ConnectDB } from "./Database/db.js";
 import { userRouter } from "./routes/userRoute.js";
 import { FoodCategoryRouter } from "./routes/foodCategoryRoute.js";
 import { FoodRouter } from "./routes/foodRoute.js";
+import { authRouter } from "./routes/authRoute.js";
 
 configDotenv();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use("/user", userRouter);
 app.use("/foodcategory", FoodCategoryRouter);
 app.use("/foods", FoodRouter);
+app.use('/user', authRouter)
 
 console.log("Server live!");
 
