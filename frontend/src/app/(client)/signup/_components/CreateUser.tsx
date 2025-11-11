@@ -37,7 +37,7 @@ const [error, setError] = useState("")
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
         onChange={handleEmailChange}
-          className={`border border-gray-300 rounded-md py-1 ${error ? "border-red-500" : "border-gray-300"}`}
+          className={`border border-gray-300 rounded-md py-1 pl-2 ${error ? "border-red-500" : "border-gray-300"}`}
           type="text"
           placeholder="Enter your email address"
           required

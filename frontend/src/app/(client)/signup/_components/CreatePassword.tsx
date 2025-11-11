@@ -10,7 +10,6 @@ export function CreatePassword ({onBack}:{onBack: ()=> void}) {
     const [passwordError, setPasswordError] = useState("")
     const [confirmError, setConfirmError]= useState("")
     const [showPass, setShowPass] = useState(false)
-    const [showConfirm, setShowConfirm]= useState(false)
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -41,17 +40,17 @@ export function CreatePassword ({onBack}:{onBack: ()=> void}) {
             </div>
             <form onSubmit={handleSubmit} className="flex flex-col gap-3">
             <input 
-            className={`border border-gray-300 rounded-md py-1 ${passwordError && password.length < 6 ? "border-red-500" : "border-gray-300"}`}
-             type="password" 
+            className={`border border-gray-300 rounded-md py-1 pl-3 ${passwordError && password.length < 6 ? "border-red-500" : "border-gray-300"}`}
+             type={showPass ? "text" : "password"} 
              placeholder="Password" 
              value={password} 
              onChange={(e) => {
                 setPassword(e.target.value);
-                if(e.target.value.length > 6) setPasswordError("")
+                if(e.target.value.length >= 6) setPasswordError("")
              }} required />
              {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
-            <input className={`border border-gray-300 rounded-md py-1 ${confirmError && password !== confirm ? "border-red-500" : "border-gray-300"}`} 
-            type="password" 
+            <input className={`border border-gray-300 rounded-md py-1 pl-2 ${confirmError && password !== confirm ? "border-red-500" : "border-gray-300"}`} 
+            type={showPass ? "text" : "password"} 
             placeholder="Confirm" 
             value={confirm}
             onChange={(e) => {
@@ -62,11 +61,13 @@ export function CreatePassword ({onBack}:{onBack: ()=> void}) {
             />
             {confirmError && <p className=" text-red-500 text-sm">{confirmError}</p>}
 
-            <div className="flex items-center gap-4">
-                <CheckboxPass/>
+            <label className="flex items-center gap-4">
+                <CheckboxPass 
+                checked={showPass}
+                onChange={()=> setShowPass(!showPass)}/>
                 <p>Show password</p>
                
-            </div>
+            </label>
             
             <button type="submit" className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md">Let's Go</button>
             </form>
