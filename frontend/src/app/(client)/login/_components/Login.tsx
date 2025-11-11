@@ -60,7 +60,7 @@ export function LoginUser() {
 
           <button
             type="submit"
-            className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md"
+            className="bg-gray-300 text-[#FAFAFA] py-3 rounded-md"
           >
             Let's Go
           </button>
