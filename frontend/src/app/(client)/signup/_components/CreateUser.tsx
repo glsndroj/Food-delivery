@@ -1,11 +1,28 @@
+"use client"
 import { BackSVG } from "@/svgs/backButtonSVG";
 import Link from "next/link";
+import { useState } from "react";
 
 export function CreateUser({onNext}:{onNext: () => void}) {
+const [email, setEmail] = useState("")
+const [error, setError] = useState("")
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onNext();
   }
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setEmail(value);
+
+   
+    if (value.includes("@")) {
+      setError("");
+    } else {
+      setError("Enter a valid email address.");
+    }
+  };
 
   return (
     <div className="flex gap-24 w-full h-screen items-center justify-center">
@@ -19,11 +36,13 @@ export function CreateUser({onNext}:{onNext: () => void}) {
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
-          className="border border-gray-300 rounded-md py-1"
-          type="email"
+        onChange={handleEmailChange}
+          className={`border border-gray-300 rounded-md py-1 ${error ? "border-red-500" : "border-gray-300"}`}
+          type="text"
           placeholder="Enter your email address"
           required
         />
+        {error && <p className="text-red-500 text.sm">{error}</p>}
         <button type="submit" className="bg-gray-300 text-[#FAFAFA] py-2 rounded-md">
           Let's Go
         </button>
