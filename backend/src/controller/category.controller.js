@@ -25,8 +25,29 @@ export const CreateFoodCategory = async (req, res) => {
 };
 
 export const getFoodCategory = async (req, res) => {
+  const {body} = req;
   try {
-    const result = await Category.find();
+    const result = await Category.aggregate([
+      {
+        $lookup:
+          /**
+           * from: The target collection.
+           * localField: The local join field.
+           * foreignField: The target join field.
+           * as: The name for the results.
+           * pipeline: Optional pipeline to run on the foreign collection.
+           * let: Optional variables to use in the pipeline field stages.
+           */
+          {
+            from: "foods",
+            localField: "_id",
+            foreignField: "category",
+            as: "foods",
+          },
+      },
+  
+    ])
+    
     res.status(200).send(result);
   } catch (error) {
     res.status(500).send("Error", error);
