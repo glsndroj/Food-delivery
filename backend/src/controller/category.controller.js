@@ -3,6 +3,9 @@ import { Category } from "../models/categorySchema.js";
 export const CreateFoodCategory = async (req, res) => {
   try {
     const { name } = req.body;
+    if(!name || typeof name !== "string" || !name.trim()){
+      return res.status(400).send({message: "Category name is required"})
+    }
 
     const existingCategory = await Category.findOne({ name: name.trim() });
     if (existingCategory) {
