@@ -6,7 +6,9 @@ export default function Home() {
   return (
    <div>
     <Navbar/>
-    <div className="w-full h-screen"></div>
+    <div className="w-full h-screen">
+      <img src="/BG.png" alt="" />
+    </div>
     <Footer/>
    </div>
   );

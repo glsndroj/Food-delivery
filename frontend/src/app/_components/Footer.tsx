@@ -2,7 +2,7 @@ import { Nomnom } from "@/svgs/nomnomSVG";
 
 export default function Footer(){
     return(
-        <div className="footerContainer bg-[#18181B] w-full h-[755px]">
+        <div className="footerContainer bg-[#18181B] w-full h-[755px] flex flex-col justify-center items-center">
             <div className="w-full h-[92px] bg-[#EF4444] flex text-white text-[25px] gap-8 font-semibold items-center justify-center">
                 <p>Fresh fast delivered</p>
                 <p>Fresh fast delivered</p>
@@ -51,8 +51,19 @@ export default function Footer(){
 
                 </div>
             </div>
-            <div>
+            <div className="w-[1264px] h-5 border-t flex gap-12 text-[#71717A]">
+                <div className="flex gap-2">
+                    <p>Copy right 2025</p>
+                    <p>©</p>
+                    <p>Nomnom LLC</p>
+                </div>
+                <div className="flex gap-10">
+                <p>Privacy policy</p>
+                <p>Terms and condition</p>
+                <p>Cookie policy</p>
+                </div>
                 
+
             </div>
         </div>
     )

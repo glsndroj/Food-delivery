@@ -1,4 +1,5 @@
 import { Nomnom } from "@/svgs/nomnomSVG";
+import Link from "next/link";
 
 export default function Navbar() {
     return(
@@ -12,8 +13,11 @@ export default function Navbar() {
                 
             </div>
             <div className="flex gap-4 pr-20">
-                <button className="bg-[#F4F4F5] rounded-3xl py-2 px-4">Sign up</button>
-                <button className="bg-[#EF4444] text-[#FAFAFA] rounded-3xl py-2 px-4">Log in</button>
+                <Link href="./signup">
+                <button className="bg-[#F4F4F5] rounded-3xl py-2 px-4">Sign up</button></Link>
+                <Link href="./login">
+                <button className="bg-[#EF4444] text-[#FAFAFA] rounded-3xl py-2 px-4">Log in</button></Link>
+               
             </div>
         </div>
     )
