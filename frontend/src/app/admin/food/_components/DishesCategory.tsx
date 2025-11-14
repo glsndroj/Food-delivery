@@ -62,8 +62,8 @@ export default function DishesCategory() {
   }, []);
 
   return (
-    <div>
-      <div className="dishesCategory w-[1123px] h-32 bg-white flex items-center  px-4">
+    
+      <div className="dishesCategory w-[1671px] h-fit bg-white flex items-center flex-wrap py-2 px-4 rounded-md">
         <div>
           <h2 className="text-[20px] font-semibold">Dishes Category</h2>
 
@@ -72,7 +72,7 @@ export default function DishesCategory() {
               categories.map((cat) => (
                 <div
                   key={cat._id}
-                  className="px-4 py-2 bg-gray-100 rounded-4xl shadow-sm text-gray-800 font-medium"
+                  className="px-4 py-2 bg-gray-100 rounded-4xl border shadow-sm text-gray-800 font-medium"
                 >
                   {cat.name}
                 </div>
@@ -117,6 +117,6 @@ export default function DishesCategory() {
 
         
       </div>
-    </div>
+    
   );
 }
