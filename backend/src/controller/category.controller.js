@@ -33,14 +33,6 @@ export const getFoodCategory = async (req, res) => {
     const result = await Category.aggregate([
       {
         $lookup:
-          /**
-           * from: The target collection.
-           * localField: The local join field.
-           * foreignField: The target join field.
-           * as: The name for the results.
-           * pipeline: Optional pipeline to run on the foreign collection.
-           * let: Optional variables to use in the pipeline field stages.
-           */
           {
             from: "foods",
             localField: "_id",
@@ -51,7 +43,7 @@ export const getFoodCategory = async (req, res) => {
   
     ])
     
-    res.status(200).send(result);
+    res.status(200).send({message: "Categories fetched successfully!", data: result});
   } catch (error) {
     res.status(500).send("Error", error);
   }
