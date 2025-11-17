@@ -6,8 +6,7 @@ import { userRouter } from "./routes/userRoute.js";
 import { FoodCategoryRouter } from "./routes/categoryRoute.js";
 import { FoodRouter } from "./routes/foodRoute.js";
 import { authRouter } from "./routes/authRoute.js";
-import cors from "cors"
-
+import cors from "cors";
 
 configDotenv();
 
@@ -19,15 +18,17 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 
-
 app.use("/user", userRouter);
 app.use("/foodcategory", FoodCategoryRouter);
 app.use("/foods", FoodRouter);
-app.use('/user', authRouter)
+app.use("/user", authRouter);
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
 console.log("Server live!");
 
-app.listen(port, () => {
+app.listen(4000, () => {
   ConnectDB();
-  console.log(`server is running ${process.env.PORT}`)
+  console.log(`server is running ${process.env.PORT}`);
 });
